@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loan EMI Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container py-4" style="max-width: 960px">
+      <h1 class="h3 mb-4">Loan EMI Calculator</h1>
+
+      <div class="row g-4">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-body">
+              <form id="emi-form" novalidate>
+                <div class="mb-3">
+                  <label for="principal" class="form-label">Loan amount</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="principal"
+                    step="any"
+                    value="500000"
+                  />
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                  <label for="rate" class="form-label"
+                    >Annual interest rate (%)</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="rate"
+                    step="any"
+                    value="12"
+                  />
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                  <label for="months" class="form-label">Tenure (months)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="months"
+                    step="1"
+                    value="24"
+                  />
+                  <div class="invalid-feedback"></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="calc-btn">
+                  Calculate EMI
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-header">Result</div>
+            <div class="card-body" id="result-body">
+              <p class="text-muted mb-0">
+                Enter the loan details and select Calculate EMI.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="h5 mt-5 mb-3">Last 10 calculations</h2>
+      <div class="table-responsive">
+        <table class="table table-sm table-striped bg-white" id="history-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th class="text-end">Loan amount</th>
+              <th class="text-end">Rate (%)</th>
+              <th class="text-end">Months</th>
+              <th class="text-end">EMI</th>
+              <th>Served by</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <footer class="text-muted small mt-4">
+        Loan EMI Calculator, version 1.0
+      </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      $(function () {
+        function fmt(v) {
+          return Number(v).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        }
+        function cell(text, right) {
+          return $("<td>").text(text).toggleClass("text-end", !!right);
+        }
+
+        function loadHistory() {
+          $.getJSON("/api/history")
+            .done(function (rows) {
+              var $body = $("#history-table tbody").empty();
+              if (rows.length === 0) {
+                $body.append(
+                  $("<tr>").append(
+                    $("<td colspan='6' class='text-muted'>").text(
+                      "No calculations yet.",
+                    ),
+                  ),
+                );
+                return;
+              }
+              $.each(rows, function (_, r) {
+                $body.append(
+                  $("<tr>")
+                    .append(cell(new Date(r.createdAt).toLocaleString()))
+                    .append(cell(fmt(r.principal), true))
+                    .append(cell(r.rate, true))
+                    .append(cell(r.months, true))
+                    .append(cell(fmt(r.emi), true))
+                    .append(cell(r.servedBy)),
+                );
+              });
+            })
+            .fail(function () {
+              $("#history-table tbody")
+                .empty()
+                .append(
+                  $("<tr>").append(
+                    $("<td colspan='6' class='text-danger'>").text(
+                      "Could not load history.",
+                    ),
+                  ),
+                );
+            });
+        }
+
+        // Client-side validation: positive numbers only
+        function validate() {
+          var ok = true;
+          var checks = [
+            { id: "#principal", label: "Loan amount", whole: false },
+            { id: "#rate", label: "Interest rate", whole: false },
+            { id: "#months", label: "Tenure", whole: true },
+          ];
+          $.each(checks, function (_, c) {
+            var $input = $(c.id);
+            var raw = $.trim($input.val());
+            var num = Number(raw);
+            var msg = "";
+            if (raw === "" || !isFinite(num)) {
+              msg = c.label + " must be a number.";
+            } else if (num <= 0) {
+              msg = c.label + " must be greater than 0.";
+            } else if (c.whole && Math.floor(num) !== num) {
+              msg = c.label + " must be a whole number.";
+            }
+            $input.toggleClass("is-invalid", msg !== "");
+            $input.siblings(".invalid-feedback").text(msg);
+            if (msg) {
+              ok = false;
+            }
+          });
+          return ok;
+        }
+
+        function showResult(d) {
+          var $dl = $("<dl class='row mb-0'>");
+          function row(label, value) {
+            $dl
+              .append($("<dt class='col-sm-5'>").text(label))
+              .append($("<dd class='col-sm-7'>").text(value));
+          }
+          row("Monthly EMI", fmt(d.emi));
+          row("Total payment", fmt(d.totalPayment));
+          row("Total interest", fmt(d.totalInterest));
+          row("Served by pod", d.servedBy);
+          row("Pod IP address", d.podIp);
+          $("#result-body").empty().append($dl);
+        }
+
+        function showError(msg) {
+          $("#result-body")
+            .empty()
+            .append($("<div class='alert alert-danger mb-0'>").text(msg));
+        }
+
+        $("#emi-form").on("submit", function (e) {
+          e.preventDefault(); // no postback
+          if (!validate()) {
+            return;
+          }
+          var $btn = $("#calc-btn").prop("disabled", true);
+          $.ajax({
+            url: "/api/emi",
+            method: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({
+              P: Number($("#principal").val()),
+              rate: Number($("#rate").val()),
+              n: Number($("#months").val()),
+            }),
+          })
+            .done(function (d) {
+              showResult(d);
+              loadHistory();
+            })
+            .fail(function (xhr) {
+              showError(
+                (xhr.responseJSON && xhr.responseJSON.error) ||
+                  "The request failed. Please try again.",
+              );
+            })
+            .always(function () {
+              $btn.prop("disabled", false);
+            });
+        });
+
+        loadHistory();
+      });
+    </script>
+  </body>
+</html>

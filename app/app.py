@@ -1,3 +1,4 @@
+from flask import Flask, jsonify, request, send_from_directory
 import math
 import os
 import socket
@@ -80,7 +81,9 @@ def history():
     for row in rows:
         row["createdAt"] = row["createdAt"].isoformat() + "Z"
     return jsonify(rows)
-
+@app.get("/")
+def index():
+    return send_from_directory(app.static_folder, "index.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "8080")))
