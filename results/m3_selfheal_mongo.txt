@@ -1,0 +1,39 @@
+$ bash scripts/selfheal.sh mongo
+Current PRIMARY: mongo-0
+16:55:25 kubectl delete pod mongo-0 -n emi
+pod "mongo-0" deleted from emi namespace
+16:55:27 new PRIMARY elected: mongo-1.mongo:27017
+
+--- kubectl get pods -n emi -w
+EVENT      NAME                       READY   STATUS      RESTARTS      AGE
+ADDED      emi-web-8477d9df88-92fg6   1/1     Running     0             63s
+ADDED      emi-web-8477d9df88-gk8kp   1/1     Running     0             76s
+ADDED      emi-web-8477d9df88-r5sp9   1/1     Running     0             89s
+ADDED      mongo-0                    1/1     Running     0             17m
+ADDED      mongo-1                    1/1     Running     0             14m
+ADDED      mongo-2                    1/1     Running     0             17m
+ADDED      mongo-init-9ds25           0/1     Completed   2 (17m ago)   17m
+MODIFIED   mongo-0                    1/1     Terminating   0             17m
+MODIFIED   mongo-0                    1/1     Terminating   0             17m
+MODIFIED   mongo-0                    0/1     Completed     0             17m
+MODIFIED   mongo-0                    0/1     Completed     0             17m
+DELETED    mongo-0                    0/1     Completed     0             17m
+ADDED      mongo-0                    0/1     Pending       0             0s
+MODIFIED   mongo-0                    0/1     Pending       0             0s
+MODIFIED   mongo-0                    0/1     ContainerCreating   0             0s
+MODIFIED   mongo-0                    0/1     ContainerCreating   0             1s
+MODIFIED   mongo-0                    1/1     Running             0             1s
+
+--- request loop through http://emi.local (60 s)
+requests: 213   HTTP 200: 213   other: 0
+
+--- replica set after the test
+mongo-0.mongo:27017  SECONDARY
+mongo-1.mongo:27017  PRIMARY
+mongo-2.mongo:27017  SECONDARY
+
+--- latest saved calculations (app still saves)
+2026-11-25T16:56:19.004000Z 200000.0 11.0 48 5169.1 emi-web-8477d9df88-gk8kp
+2026-11-25T16:56:18.732000Z 200000.0 11.0 48 5169.1 emi-web-8477d9df88-92fg6
+2026-11-25T16:56:18.462000Z 200000.0 11.0 48 5169.1 emi-web-8477d9df88-gk8kp
+

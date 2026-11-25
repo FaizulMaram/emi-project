@@ -1,0 +1,8 @@
+$ kubectl exec -n emi mongo-0 -- mongosh --quiet --eval 'rs.status().members.forEach(m => print(m.name + "  " + m.stateStr))'
+mongo-0.mongo:27017  PRIMARY
+mongo-1.mongo:27017  SECONDARY
+mongo-2.mongo:27017  SECONDARY
+
+$ kubectl logs job/mongo-init -n emi
+{ ok: 1 }
+

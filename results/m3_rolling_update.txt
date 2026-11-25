@@ -1,0 +1,41 @@
+$ bash scripts/rollout.sh update
+$ kubectl set image deployment/emi-web emi-web=emi-web:1.1 -n emi
+deployment.apps/emi-web image updated
+$ kubectl rollout status deployment/emi-web -n emi
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+deployment "emi-web" successfully rolled out
+
+--- request loop through http://emi.local during the rollout
+requests: 129   HTTP 200: 129   failed: 0
+first and last requests (time, HTTP code, pod):
+16:56:54 200 emi-web-8477d9df88-r5sp9
+16:56:54 200 emi-web-8477d9df88-gk8kp
+16:56:55 200 emi-web-8477d9df88-92fg6
+  ...
+16:57:31 200 emi-web-68b69cc955-c6zpg
+16:57:32 200 emi-web-68b69cc955-bsp5j
+16:57:32 200 emi-web-68b69cc955-c6zpg
+
+$ kubectl rollout history deployment/emi-web -n emi
+deployment.apps/emi-web 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         emi-web:1.0 with preStop hook
+3         update to emi-web:1.1 (footer)
+
+
+$ kubectl get deployment emi-web -n emi -o wide
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES        SELECTOR
+emi-web   3/3     3            3           19m   emi-web      emi-web:1.1   app=emi-web
+
+$ curl -s http://emi.local/ | grep -o 'Loan EMI Calculator, version [0-9.]*'
+Loan EMI Calculator, version 1.1
+

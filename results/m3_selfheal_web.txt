@@ -1,0 +1,35 @@
+$ bash scripts/selfheal.sh web
+16:54:16 kubectl delete pod emi-web-8477d9df88-5msb2 -n emi
+pod "emi-web-8477d9df88-5msb2" deleted from emi namespace
+
+--- kubectl get pods -n emi -w
+EVENT      NAME                       READY   STATUS      RESTARTS      AGE
+ADDED      emi-web-8477d9df88-5msb2   1/1     Running     0             14s
+ADDED      emi-web-8477d9df88-gk8kp   1/1     Running     0             8s
+ADDED      emi-web-8477d9df88-r5sp9   1/1     Running     0             21s
+ADDED      mongo-0                    1/1     Running     0             16m
+ADDED      mongo-1                    1/1     Running     0             13m
+ADDED      mongo-2                    1/1     Running     0             16m
+ADDED      mongo-init-9ds25           0/1     Completed   2 (16m ago)   16m
+MODIFIED   emi-web-8477d9df88-5msb2   1/1     Terminating   0             19s
+ADDED      emi-web-8477d9df88-92fg6   0/1     Pending       0             0s
+MODIFIED   emi-web-8477d9df88-5msb2   1/1     Terminating   0             19s
+MODIFIED   emi-web-8477d9df88-92fg6   0/1     Pending       0             0s
+MODIFIED   emi-web-8477d9df88-92fg6   0/1     ContainerCreating   0             0s
+MODIFIED   emi-web-8477d9df88-92fg6   0/1     ContainerCreating   0             0s
+MODIFIED   emi-web-8477d9df88-92fg6   0/1     Running             0             0s
+MODIFIED   emi-web-8477d9df88-92fg6   1/1     Running             0             6s
+MODIFIED   emi-web-8477d9df88-92fg6   1/1     Running             0             6s
+MODIFIED   emi-web-8477d9df88-5msb2   0/1     Completed           0             30s
+MODIFIED   emi-web-8477d9df88-5msb2   0/1     Completed           0             31s
+DELETED    emi-web-8477d9df88-5msb2   0/1     Completed           0             31s
+
+--- request loop through http://emi.local (60 s)
+requests: 223   HTTP 200: 223   other: 0
+
+$ kubectl get pods -n emi -l app=emi-web
+NAME                       READY   STATUS    RESTARTS   AGE
+emi-web-8477d9df88-92fg6   1/1     Running   0          55s
+emi-web-8477d9df88-gk8kp   1/1     Running   0          68s
+emi-web-8477d9df88-r5sp9   1/1     Running   0          81s
+

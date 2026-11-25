@@ -1,0 +1,42 @@
+$ bash scripts/rollout.sh undo
+$ kubectl rollout undo deployment/emi-web -n emi
+Warning: resource deployments/emi-web was previously managed with 'kubectl apply'. Rolling back will not update the kubectl.kubernetes.io/last-applied-configuration annotation, which may cause unexpected behavior on future 'kubectl apply' operations. Consider using 'kubectl apply' with your previous configuration file instead.
+deployment.apps/emi-web rolled back
+$ kubectl rollout status deployment/emi-web -n emi
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "emi-web" rollout to finish: 1 old replicas are pending termination...
+deployment "emi-web" successfully rolled out
+
+--- request loop through http://emi.local during the rollout
+requests: 133   HTTP 200: 133   failed: 0
+first and last requests (time, HTTP code, pod):
+16:57:45 200 emi-web-68b69cc955-c6zpg
+16:57:45 200 emi-web-68b69cc955-w6b4w
+16:57:45 200 emi-web-68b69cc955-w6b4w
+  ...
+16:58:23 200 emi-web-8477d9df88-vqkhn
+16:58:23 200 emi-web-8477d9df88-2rkxm
+16:58:23 200 emi-web-8477d9df88-nhghx
+
+$ kubectl rollout history deployment/emi-web -n emi
+deployment.apps/emi-web 
+REVISION  CHANGE-CAUSE
+1         <none>
+3         update to emi-web:1.1 (footer)
+4         emi-web:1.0 with preStop hook
+
+
+$ kubectl get deployment emi-web -n emi -o wide
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES        SELECTOR
+emi-web   3/3     3            3           20m   emi-web      emi-web:1.0   app=emi-web
+
+$ curl -s http://emi.local/ | grep -o 'Loan EMI Calculator, version [0-9.]*'
+Loan EMI Calculator, version 1.0
+

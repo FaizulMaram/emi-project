@@ -1,0 +1,27 @@
+$ cat k8s/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emi-ingress
+  namespace: emi
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: emi.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: emi-web
+                port:
+                  number: 80
+
+$ kubectl get ingress -n emi
+NAME          CLASS   HOSTS       ADDRESS        PORTS   AGE
+emi-ingress   nginx   emi.local   192.168.49.2   80      3m57s
+
+$ grep emi.local /etc/hosts
+127.0.0.1  emi.local
+

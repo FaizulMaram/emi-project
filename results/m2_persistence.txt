@@ -1,0 +1,40 @@
+$ kubectl exec -n emi mongo-0 -- mongosh emidb --quiet --eval 'print("documents in calculations: " + db.calculations.countDocuments())'
+documents in calculations: 5
+
+$ kubectl get pod mongo-1 -n emi -o wide
+NAME      READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+mongo-1   1/1     Running   0          15s   10.244.0.14   minikube   <none>           <none>
+
+$ kubectl get pod mongo-1 -n emi -o jsonpath='{.metadata.name}  uid={.metadata.uid}  started={.status.startTime}  pvc={.spec.volumes[0].persistentVolumeClaim.claimName}{"\n"}'
+mongo-1  uid=7c3000a0-4c68-4265-ad0c-e5626b0a82dc  started=2026-11-25T16:39:53Z  pvc=data-mongo-1
+
+$ kubectl get pvc data-mongo-1 -n emi
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-mongo-1   Bound    pvc-cd18be5e-646a-4caf-b366-f1224a86d6ca   1Gi        RWO            standard       <unset>                 2m9s
+
+$ kubectl delete pod mongo-1 -n emi
+pod "mongo-1" deleted from emi namespace
+
+$ kubectl wait --for=condition=Ready pod/mongo-1 -n emi --timeout=120s
+pod/mongo-1 condition met
+
+$ kubectl get pod mongo-1 -n emi -o wide
+NAME      READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+mongo-1   1/1     Running   0          0s    10.244.0.15   minikube   <none>           <none>
+
+$ kubectl get pod mongo-1 -n emi -o jsonpath='{.metadata.name}  uid={.metadata.uid}  started={.status.startTime}  pvc={.spec.volumes[0].persistentVolumeClaim.claimName}{"\n"}'
+mongo-1  uid=f7012683-6234-4531-b940-d68022389cd7  started=2026-11-25T16:40:24Z  pvc=data-mongo-1
+
+$ kubectl get pvc data-mongo-1 -n emi
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-mongo-1   Bound    pvc-cd18be5e-646a-4caf-b366-f1224a86d6ca   1Gi        RWO            standard       <unset>                 2m25s
+
+$ until kubectl exec -n emi mongo-1 -- mongosh --quiet --eval 'db.hello().secondary' 2>/dev/null | grep -q true; do python3 -c 'import time; time.sleep(2)'; done; echo 'mongo-1 rejoined the replica set as SECONDARY'
+mongo-1 rejoined the replica set as SECONDARY
+
+$ kubectl exec -n emi mongo-1 -- mongosh emidb --quiet --eval 'db.getMongo().setReadPref("secondary"); print("documents on recreated mongo-1: " + db.calculations.countDocuments())'
+documents on recreated mongo-1: 5
+
+$ kubectl exec -n emi mongo-0 -- mongosh emidb --quiet --eval 'print("documents in calculations: " + db.calculations.countDocuments())'
+documents in calculations: 5
+

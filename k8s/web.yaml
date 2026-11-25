@@ -13,12 +13,19 @@ spec:
       labels:
         app: emi-web
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: emi-web
           image: emi-web:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          lifecycle:
+            preStop:
+              # Keep serving while the Service and Ingress stop routing to
+              # this pod, so in-flight and late requests do not fail.
+              exec:
+                command: ["sleep", "10"]
           env:
             - name: MONGO_URL
               valueFrom:

@@ -1,0 +1,13 @@
+$ kubectl get pods -n emi -l app=emi-web
+NAME                       READY   STATUS    RESTARTS   AGE
+emi-web-7d5d9c9c68-ghv6m   1/1     Running   0          4m11s
+emi-web-7d5d9c9c68-gn6dn   1/1     Running   0          4m11s
+emi-web-7d5d9c9c68-gt24t   1/1     Running   0          4m11s
+
+$ bash scripts/dist.sh
+Requests served per pod (30 requests):
+  emi-web-7d5d9c9c68-ghv6m         11
+  emi-web-7d5d9c9c68-gn6dn         10
+  emi-web-7d5d9c9c68-gt24t         9
+  total: 30
+

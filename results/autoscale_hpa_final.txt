@@ -1,2 +1,2 @@
 NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
-emi-web   Deployment/emi-web   cpu: 22%/50%   1         5         1          11m
+emi-web   Deployment/emi-web   cpu: 12%/50%   1         5         1          11m

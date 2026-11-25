@@ -11,11 +11,11 @@ for R in 1 2 3; do
     L=r${R}_rate${RATE}
     N=$((RATE*60))
     echo "=== $L ($(date +%H:%M:%S)) ==="
-    python scripts/profile.py $L & PID=$!
+    python3 scripts/profile.py $L & PID=$!
     sleep 2
     httperf --hog --server emi.local --port 80 \
       --add-header='Content-Type: application/json\n' \
-      --wsesslog=$N,0,scripts/sessions_${RATE}_60.txt \
+      --wsesslog=$N,0,scripts/sessions.txt \
       --rate=$RATE --timeout=5 > results/run_$L.txt 2>&1
     kill $PID; wait $PID 2>/dev/null
     sleep 20

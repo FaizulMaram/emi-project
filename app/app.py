@@ -1,10 +1,9 @@
-from flask import Flask, jsonify, request, send_from_directory
 import math
 import os
 import socket
 from datetime import datetime, timezone
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -54,6 +53,8 @@ def calc_emi():
         emi = P * r * (1 + r) ** n / ((1 + r) ** n - 1)
     except (OverflowError, ZeroDivisionError):
         return jsonify(error="These values are too large or too small"), 400
+    if not math.isfinite(emi):
+        return jsonify(error="These values are too large or too small"), 400
     total_payment = emi * n
     total_interest = total_payment - P
 
@@ -81,9 +82,12 @@ def history():
     for row in rows:
         row["createdAt"] = row["createdAt"].isoformat() + "Z"
     return jsonify(rows)
+
+
 @app.get("/")
 def index():
     return send_from_directory(app.static_folder, "index.html")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "8080")))
