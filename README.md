@@ -1,6 +1,6 @@
 # Loan EMI Calculator on Kubernetes (Minikube)
 
-DS-584 Cloud Computing, Assignment 4.
+Cloud Computing, Assignment 4
 
 A Flask web app that calculates loan EMIs and stores every calculation in a
 3-member MongoDB replica set. It runs on a single-node Minikube cluster: the web
