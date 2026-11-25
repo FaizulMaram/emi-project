@@ -1,0 +1,5 @@
+Total: requests 30000 replies 17966 test-duration 322.726 s
+Reply rate [replies/s]: min 0 avg 55.7 max 0
+Reply time [ms]: response 2078.1
+Reply status: 200=8383 502=159 503=9424 2xx=8383
+Errors: total 12034

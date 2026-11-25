@@ -1,0 +1,5 @@
+Total: requests 600 replies 600 test-duration 59.924 s
+Reply rate [replies/s]: min 0 avg 10.0 max 0
+Reply time [ms]: response 129.9
+Reply status: 200=600 2xx=600
+Errors: total 0

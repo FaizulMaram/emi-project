@@ -1,0 +1,5 @@
+Total: requests 3000 replies 3000 test-duration 60.038 s
+Reply rate [replies/s]: min 0 avg 50.0 max 0
+Reply time [ms]: response 127.0
+Reply status: 200=3000 2xx=3000
+Errors: total 0
