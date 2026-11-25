@@ -1,0 +1,242 @@
+PRIMARY is mongo-1
+Deleting mongo-1 at 15:14:35
+--- 15:14:52
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 0/1 ContainerCreating
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 (not reachable/healthy)
+mongo-2.mongo:27017 SECONDARY
+--- 15:14:58
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:04
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:10
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:15
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:20
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:25
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:30
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:34
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:39
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:44
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:51
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:15:57
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:02
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:06
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:11
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:16
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:20
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:25
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
+--- 15:16:29
+emi-web-7d5d9c9c68-l5tt5 1/1 Running
+emi-web-7d5d9c9c68-qlxc6 1/1 Running
+emi-web-7d5d9c9c68-w2j7w 1/1 Running
+emi-web-7d5d9c9c68-w8zjc 1/1 Running
+emi-web-7d5d9c9c68-xdsqt 1/1 Running
+mongo-0 1/1 Running
+mongo-1 1/1 Running
+mongo-2 1/1 Running
+mongo-0.mongo:27017 PRIMARY
+mongo-1.mongo:27017 SECONDARY
+mongo-2.mongo:27017 SECONDARY
